@@ -6,7 +6,7 @@ public class Game {
     GamePanel gamePanel;
 
     public Game() {
-        window = new Window();
         gamePanel = new GamePanel();
+        window = new Window(gamePanel);
     }
 }
