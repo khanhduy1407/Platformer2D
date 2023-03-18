@@ -2,7 +2,9 @@ package com.nkduy.platformer;
 
 public class Game {
 
+    Window window;
+
     public Game() {
-        System.out.println("Hello World, again!");
+        window = new Window();
     }
 }
