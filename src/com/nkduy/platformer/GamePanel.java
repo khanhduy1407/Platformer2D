@@ -12,6 +12,6 @@ public class GamePanel extends JPanel {
     public void paintComponents(Graphics g) {
         super.paintComponents(g);
 
-        g.drawRect(100, 100, 200, 50);
+        g.fillRect(100, 100, 200, 50);
     }
 }
