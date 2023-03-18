@@ -10,6 +10,6 @@ public class GamePanel extends JPanel {
     }
 
     public void paintComponents(Graphics g) {
-        //
+        super.paintComponents(g);
     }
 }
