@@ -7,15 +7,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 public class GamePanel extends JPanel {
 
     Mouse mouse;
-    int xDelta = 100, yDelta = 100;
+    float xDelta = 100, yDelta = 100;
+    float xDir = 0.1f, yDir = 0.1f;
     int frames = 0;
     long lastCheck = 0;
+    Color color = new Color(150, 20, 90);
+    Random random;
 
     public GamePanel() {
+        random = new Random();
         mouse = new Mouse(this);
 
         addKeyListener(new Keyboard(this));
@@ -39,7 +44,9 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.fillRect(xDelta, yDelta, 200, 50);
+        updateRectangle();
+        g.setColor(color);
+        g.fillRect((int) xDelta, (int) yDelta, 200, 50);
 
         frames++;
         // If one second have passed since the last fps check, we do a new fps check.
@@ -51,5 +58,27 @@ public class GamePanel extends JPanel {
         }
 
         repaint();
+    }
+
+    private void updateRectangle() {
+        xDelta += xDir;
+        if (xDelta > 400 || xDelta < 0) {
+            xDir *= -1;
+            color = getRandColor();
+        }
+
+        yDelta += yDir;
+        if (yDelta > 400 || yDelta < 0) {
+            yDir *= -1;
+            color = getRandColor();
+        }
+    }
+
+    private Color getRandColor() {
+        int r = random.nextInt(255);
+        int g = random.nextInt(255);
+        int b = random.nextInt(255);
+
+        return new Color(r, g, b);
     }
 }
