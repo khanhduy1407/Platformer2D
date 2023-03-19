@@ -14,8 +14,6 @@ public class GamePanel extends JPanel {
     Mouse mouse;
     float xDelta = 100, yDelta = 100;
     float xDir = 1f, yDir = 1f;
-    int frames = 0;
-    long lastCheck = 0;
     Color color = new Color(150, 20, 90);
     Random random;
 
@@ -47,15 +45,6 @@ public class GamePanel extends JPanel {
         updateRectangle();
         g.setColor(color);
         g.fillRect((int) xDelta, (int) yDelta, 200, 50);
-
-        frames++;
-        // If one second have passed since the last fps check, we do a new fps check.
-        // Save the newFps check as the lastFps check and repeat.
-        if (System.currentTimeMillis() - lastCheck >= 1000) {
-            lastCheck = System.currentTimeMillis();
-            System.out.println("FPS: " + frames);
-            frames = 0;
-        }
     }
 
     private void updateRectangle() {
