@@ -11,10 +11,10 @@ import java.awt.event.KeyListener;
 public class GamePanel extends JPanel {
 
     Mouse mouse;
-    int xDelta = 0, yDelta = 0;
+    int xDelta = 100, yDelta = 100;
 
     public GamePanel() {
-        mouse = new Mouse();
+        mouse = new Mouse(this);
 
         addKeyListener(new Keyboard(this));
         addMouseListener(mouse);
@@ -31,9 +31,15 @@ public class GamePanel extends JPanel {
         repaint();
     }
 
+    public void setRectPos(int x, int y) {
+        this.xDelta = x;
+        this.yDelta = y;
+        repaint();
+    }
+
     public void paintComponents(Graphics g) {
         super.paintComponents(g);
 
-        g.fillRect(100 + xDelta, 100 + yDelta, 200, 50);
+        g.fillRect(xDelta, yDelta, 200, 50);
     }
 }
