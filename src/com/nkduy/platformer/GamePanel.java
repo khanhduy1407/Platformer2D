@@ -12,6 +12,8 @@ public class GamePanel extends JPanel {
 
     Mouse mouse;
     int xDelta = 100, yDelta = 100;
+    int frames = 0;
+    long lastCheck = 0;
 
     public GamePanel() {
         mouse = new Mouse(this);
@@ -34,10 +36,19 @@ public class GamePanel extends JPanel {
         this.yDelta = y;
     }
 
-    public void paintComponents(Graphics g) {
-        super.paintComponents(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
         g.fillRect(xDelta, yDelta, 200, 50);
+
+        frames++;
+        // If one second have passed since the last fps check, we do a new fps check.
+        // Save the newFps check as the lastFps check and repeat.
+        if (System.currentTimeMillis() - lastCheck >= 1000) {
+            lastCheck = System.currentTimeMillis();
+            System.out.println("FPS: " + frames);
+            frames = 0;
+        }
 
         repaint();
     }
