@@ -16,6 +16,7 @@ public class GamePanel extends JPanel {
     float xDelta = 100, yDelta = 100;
     BufferedImage img;
     BufferedImage[] idleAnim;
+    int animTick, animIndex, animSpeed = 15;
 
     public GamePanel() {
         mouse = new Mouse(this);
@@ -67,9 +68,22 @@ public class GamePanel extends JPanel {
         this.yDelta = y;
     }
 
+    private void updateAnimationTick() {
+        animTick++;
+        if (animTick >= animSpeed) {
+            animTick = 0;
+            animIndex++;
+            if (animIndex >= idleAnim.length) {
+                animIndex = 0;
+            }
+        }
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.drawImage(idleAnim[2], (int) xDelta, (int) yDelta, 96, 48, null);
+        updateAnimationTick();
+
+        g.drawImage(idleAnim[animIndex], (int) xDelta, (int) yDelta, 96, 48, null);
     }
 }
