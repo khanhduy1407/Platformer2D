@@ -18,14 +18,10 @@ public class Mouse implements MouseListener, MouseMotionListener {
     public void mouseDragged(MouseEvent e) { }
 
     @Override
-    public void mouseMoved(MouseEvent e) {
-        gamePanel.setRectPos(e.getX(), e.getY());
-    }
+    public void mouseMoved(MouseEvent e) { }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-        //
-    }
+    public void mouseClicked(MouseEvent e) { }
 
     @Override
     public void mousePressed(MouseEvent e) { }

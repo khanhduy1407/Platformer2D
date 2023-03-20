@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import static com.nkduy.platformer.util.Constants.PlayerConstants.*;
+import static com.nkduy.platformer.util.Constants.Directions.*;
 
 public class GamePanel extends JPanel {
 
@@ -20,6 +21,8 @@ public class GamePanel extends JPanel {
     BufferedImage[][] animations;
     int animTick, animIndex, animSpeed = 15;
     int playerAction = IDLE;
+    int playerDir = -1;
+    boolean moving = false;
 
     public GamePanel() {
         mouse = new Mouse(this);
@@ -60,17 +63,13 @@ public class GamePanel extends JPanel {
         setMaximumSize(size);
     }
 
-    public void changeXDelta(int value) {
-        this.xDelta += value;
+    public void setDirection(int direction) {
+        this.playerDir = direction;
+        moving = true;
     }
 
-    public void changeYDelta(int value) {
-        this.yDelta += value;
-    }
-
-    public void setRectPos(int x, int y) {
-        this.xDelta = x;
-        this.yDelta = y;
+    public void setMoving(boolean moving) {
+        this.moving = moving;
     }
 
     private void updateAnimationTick() {
@@ -84,10 +83,31 @@ public class GamePanel extends JPanel {
         }
     }
 
+    private void setAnimation() {
+        if (moving) {
+            playerAction = RUNNING;
+        } else {
+            playerAction = IDLE;
+        }
+    }
+
+    private void updatePos() {
+        if (moving) {
+            switch (playerDir) {
+                case LEFT: xDelta -= 5; break;
+                case UP: yDelta -= 5; break;
+                case RIGHT: xDelta += 5; break;
+                case DOWN: yDelta += 5; break;
+            }
+        }
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         updateAnimationTick();
+        setAnimation();
+        updatePos();
 
         g.drawImage(animations[playerAction][animIndex], (int) xDelta, (int) yDelta, 256, 160, null);
     }
