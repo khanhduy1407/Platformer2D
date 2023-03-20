@@ -22,9 +22,17 @@ public class GamePanel extends JPanel {
         random = new Random();
         mouse = new Mouse(this);
 
+        setPanelSize();
         addKeyListener(new Keyboard(this));
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
+    }
+
+    private void setPanelSize() {
+        Dimension size = new Dimension(960, 480); // w: 960/32 = 30 imgs; h: 480/32 = 15 imgs
+        setMinimumSize(size);
+        setPreferredSize(size);
+        setMaximumSize(size);
     }
 
     public void changeXDelta(int value) {
