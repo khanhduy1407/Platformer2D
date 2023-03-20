@@ -3,21 +3,38 @@ package com.nkduy.platformer;
 import com.nkduy.platformer.inputs.Keyboard;
 import com.nkduy.platformer.inputs.Mouse;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class GamePanel extends JPanel {
 
     Mouse mouse;
     float xDelta = 100, yDelta = 100;
+    BufferedImage img;
 
     public GamePanel() {
         mouse = new Mouse(this);
+
+        importImg();
 
         setPanelSize();
         addKeyListener(new Keyboard(this));
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
+    }
+
+    private void importImg() {
+        InputStream is = getClass().getResourceAsStream("/player_sprites.png");
+
+        try {
+            img = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setPanelSize() {
@@ -42,5 +59,7 @@ public class GamePanel extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        g.drawImage(img, 0, 0, null);
     }
 }
