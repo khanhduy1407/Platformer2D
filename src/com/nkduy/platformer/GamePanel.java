@@ -10,6 +10,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static com.nkduy.platformer.util.Constants.PlayerConstants.*;
+
 public class GamePanel extends JPanel {
 
     Mouse mouse;
@@ -17,6 +19,7 @@ public class GamePanel extends JPanel {
     BufferedImage img;
     BufferedImage[][] animations;
     int animTick, animIndex, animSpeed = 15;
+    int playerAction = IDLE;
 
     public GamePanel() {
         mouse = new Mouse(this);
@@ -75,7 +78,7 @@ public class GamePanel extends JPanel {
         if (animTick >= animSpeed) {
             animTick = 0;
             animIndex++;
-            if (animIndex >= 6) {
+            if (animIndex >= GetSpriteAmount(playerAction)) {
                 animIndex = 0;
             }
         }
@@ -86,6 +89,6 @@ public class GamePanel extends JPanel {
 
         updateAnimationTick();
 
-        g.drawImage(animations[1][animIndex], (int) xDelta, (int) yDelta, 96, 48, null);
+        g.drawImage(animations[playerAction][animIndex], (int) xDelta, (int) yDelta, 256, 160, null);
     }
 }
