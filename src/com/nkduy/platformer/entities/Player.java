@@ -88,13 +88,20 @@ public class Player extends Entity {
             }
         } catch (IOException e) {
             e.printStackTrace();
-//        } finally {
-//            try {
-//                is.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    public void resetDirBooleans() {
+        left = false;
+        right = false;
+        up = false;
+        down = false;
     }
 
     public boolean isLeft() {
