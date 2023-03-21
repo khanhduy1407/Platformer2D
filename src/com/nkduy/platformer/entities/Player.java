@@ -12,9 +12,9 @@ import static com.nkduy.platformer.util.Constants.PlayerConstants.*;
 public class Player extends Entity {
 
     BufferedImage[][] animations;
-    int animTick, animIndex, animSpeed = 15;
+    int animTick, animIndex, animSpeed = 25;
     int playerAction = IDLE;
-    boolean moving = false;
+    boolean moving = false, attacking = false;
     boolean left, up, right, down;
     float playerSpeed = 2.0f;
 
@@ -41,16 +41,32 @@ public class Player extends Entity {
             animIndex++;
             if (animIndex >= GetSpriteAmount(playerAction)) {
                 animIndex = 0;
+                attacking = false;
             }
         }
     }
 
     private void setAnimation() {
+        int startAnim = playerAction;
+
         if (moving) {
             playerAction = RUNNING;
         } else {
             playerAction = IDLE;
         }
+
+        if (attacking) {
+            playerAction = ATTACK_1;
+        }
+
+        if (startAnim != playerAction) {
+            resetAnimTick();
+        }
+    }
+
+    private void resetAnimTick() {
+        animTick = 0;
+        animIndex = 0;
     }
 
     private void updatePos() {
@@ -102,6 +118,10 @@ public class Player extends Entity {
         right = false;
         up = false;
         down = false;
+    }
+
+    public void setAttacking(boolean attacking) {
+        this.attacking = attacking;
     }
 
     public boolean isLeft() {
