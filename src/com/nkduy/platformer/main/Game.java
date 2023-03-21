@@ -1,6 +1,7 @@
 package com.nkduy.platformer.main;
 
 import com.nkduy.platformer.entities.Player;
+import com.nkduy.platformer.levels.LevelManager;
 
 import java.awt.*;
 
@@ -15,6 +16,7 @@ public class Game implements Runnable {
     final int UPS_SET = 200;
 
     Player player;
+    LevelManager levelManager;
 
     public static final int TILES_DEFAULT_SIZE = 32;
     public static final float SCALE = 1.0f;
@@ -37,6 +39,7 @@ public class Game implements Runnable {
 
     private void initClasses() {
         player = new Player(200, 200);
+        levelManager = new LevelManager(this);
     }
 
     private void startGameLoop() {
@@ -46,10 +49,12 @@ public class Game implements Runnable {
 
     public void update() {
         player.update();
+        levelManager.update();
     }
 
     public void render(Graphics g) {
         player.render(g);
+        levelManager.draw(g);
     }
 
     @Override
