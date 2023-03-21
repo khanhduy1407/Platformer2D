@@ -6,6 +6,9 @@ import com.nkduy.platformer.inputs.Mouse;
 import javax.swing.*;
 import java.awt.*;
 
+import static com.nkduy.platformer.main.Game.GAME_WIDTH;
+import static com.nkduy.platformer.main.Game.GAME_HEIGHT;
+
 public class GamePanel extends JPanel {
 
     Mouse mouse;
@@ -22,10 +25,9 @@ public class GamePanel extends JPanel {
     }
 
     private void setPanelSize() {
-        Dimension size = new Dimension(960, 480); // w: 960/32 = 30 images; h: 480/32 = 15 images
-        setMinimumSize(size);
+        Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
         setPreferredSize(size);
-        setMaximumSize(size);
+        System.out.println("Panel size: " + GAME_WIDTH + "x" + GAME_HEIGHT);
     }
 
     public void updateGame() {
