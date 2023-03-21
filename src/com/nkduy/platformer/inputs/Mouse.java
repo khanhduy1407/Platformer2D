@@ -1,6 +1,6 @@
 package com.nkduy.platformer.inputs;
 
-import com.nkduy.platformer.GamePanel;
+import com.nkduy.platformer.main.GamePanel;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

@@ -1,4 +1,4 @@
-package com.nkduy.platformer;
+package com.nkduy.platformer.main;
 
 import javax.swing.*;
 import java.awt.event.WindowEvent;

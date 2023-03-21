@@ -1,11 +1,9 @@
 package com.nkduy.platformer.inputs;
 
-import com.nkduy.platformer.GamePanel;
+import com.nkduy.platformer.main.GamePanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import static com.nkduy.platformer.util.Constants.Directions.*;
 
 public class Keyboard implements KeyListener {
 

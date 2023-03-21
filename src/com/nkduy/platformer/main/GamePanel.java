@@ -1,4 +1,4 @@
-package com.nkduy.platformer;
+package com.nkduy.platformer.main;
 
 import com.nkduy.platformer.inputs.Keyboard;
 import com.nkduy.platformer.inputs.Mouse;
