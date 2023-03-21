@@ -1,5 +1,9 @@
 package com.nkduy.platformer;
 
+import com.nkduy.platformer.entities.Player;
+
+import java.awt.*;
+
 public class Game implements Runnable {
 
     Window window;
@@ -10,13 +14,21 @@ public class Game implements Runnable {
     final int FPS_SET = 120;
     final int UPS_SET = 200;
 
+    Player player;
+
     public Game() {
-        gamePanel = new GamePanel();
+        initClasses();
+
+        gamePanel = new GamePanel(this);
         window = new Window(gamePanel);
 
         gamePanel.requestFocus();
 
         startGameLoop();
+    }
+
+    private void initClasses() {
+        player = new Player(200, 200);
     }
 
     private void startGameLoop() {
@@ -25,7 +37,11 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        gamePanel.updateGame();
+        player.update();
+    }
+
+    public void render(Graphics g) {
+        player.render(g);
     }
 
     @Override
@@ -72,5 +88,9 @@ public class Game implements Runnable {
                 updates = 0;
             }
         }
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
