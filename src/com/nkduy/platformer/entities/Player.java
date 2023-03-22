@@ -10,6 +10,7 @@ import java.io.InputStream;
 
 import static com.nkduy.platformer.util.Constants.Directions.*;
 import static com.nkduy.platformer.util.Constants.PlayerConstants.*;
+import static com.nkduy.platformer.util.HelpMethods.CanMoveHere;
 
 public class Player extends Entity {
 
@@ -77,19 +78,27 @@ public class Player extends Entity {
     private void updatePos() {
         moving = false;
 
+        if (!left && !right && !up && !down) {
+            return;
+        }
+
+        float xSpeed = 0, ySpeed = 0;
+
         if (left && !right) { // A
-            x -= playerSpeed;
-            moving = true;
+            xSpeed = -playerSpeed;
         } else if (right && !left) { // D
-            x += playerSpeed;
-            moving = true;
+            xSpeed = playerSpeed;
         }
 
         if (up && !down) { // W
-            y -= playerSpeed;
-            moving = true;
+            ySpeed = -playerSpeed;
         } else if (down && !up) { // S
-            y += playerSpeed;
+            ySpeed = playerSpeed;
+        }
+
+        if (CanMoveHere(x + xSpeed, y + ySpeed, width, height, lvlData)) {
+            this.x += xSpeed;
+            this.y += ySpeed;
             moving = true;
         }
     }
