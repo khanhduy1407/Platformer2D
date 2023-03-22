@@ -1,17 +1,13 @@
 package com.nkduy.platformer.entities;
 
-import com.nkduy.platformer.main.Game;
-import com.nkduy.platformer.util.LoadSave;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-
-import static com.nkduy.platformer.util.Constants.Directions.*;
 import static com.nkduy.platformer.util.Constants.PlayerConstants.*;
 import static com.nkduy.platformer.util.HelpMethods.CanMoveHere;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import com.nkduy.platformer.main.Game;
+import com.nkduy.platformer.util.LoadSave;
 
 public class Player extends Entity {
 

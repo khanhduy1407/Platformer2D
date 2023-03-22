@@ -49,8 +49,8 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        player.update();
         levelManager.update();
+        player.update();
     }
 
     public void render(Graphics g) {
@@ -81,13 +81,13 @@ public class Game implements Runnable {
             deltaF += (currentTime - previousTime) / timePerFrame;
             previousTime = currentTime;
 
-            if (deltaU > 1) {
+            if (deltaU >= 1) {
                 update();
                 updates++;
                 deltaU--;
             }
 
-            if (deltaF > 1) {
+            if (deltaF >= 1) {
                 gamePanel.repaint();
                 frames++;
                 deltaF--;
