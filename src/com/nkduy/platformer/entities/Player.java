@@ -1,5 +1,6 @@
 package com.nkduy.platformer.entities;
 
+import com.nkduy.platformer.main.Game;
 import com.nkduy.platformer.util.LoadSave;
 
 import javax.imageio.ImageIO;
@@ -21,22 +22,24 @@ public class Player extends Entity {
     boolean left, up, right, down;
     float playerSpeed = 2.0f;
     int[][] lvlData;
+    float xDrawOffset = 21 * Game.SCALE;
+    float yDrawOffset = 4 * Game.SCALE;
 
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
 
         loadAnimations();
+        initHitbox(x, y, 20 * Game.SCALE, 28 * Game.SCALE);
     }
 
     public void update() {
         updatePos();
-        updateHitbox();
         updateAnimationTick();
         setAnimation();
     }
 
     public void render(Graphics g) {
-        g.drawImage(animations[playerAction][animIndex], (int) x, (int) y, 96, 48, null);
+        g.drawImage(animations[playerAction][animIndex], (int) (hitbox.x-xDrawOffset), (int) (hitbox.y-yDrawOffset), width, height, null);
         drawHitbox(g);
     }
 
@@ -96,9 +99,15 @@ public class Player extends Entity {
             ySpeed = playerSpeed;
         }
 
-        if (CanMoveHere(x + xSpeed, y + ySpeed, width, height, lvlData)) {
-            this.x += xSpeed;
-            this.y += ySpeed;
+//        if (CanMoveHere(x + xSpeed, y + ySpeed, width, height, lvlData)) {
+//            this.x += xSpeed;
+//            this.y += ySpeed;
+//            moving = true;
+//        }
+
+        if (CanMoveHere(hitbox.x + xSpeed, hitbox.y + ySpeed, hitbox.width, hitbox.height, lvlData)) {
+            hitbox.x += xSpeed;
+            hitbox.y += ySpeed;
             moving = true;
         }
     }
