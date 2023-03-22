@@ -19,6 +19,7 @@ public class Player extends Entity {
     boolean moving = false, attacking = false;
     boolean left, up, right, down;
     float playerSpeed = 2.0f;
+    int[][] lvlData;
 
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
@@ -103,6 +104,10 @@ public class Player extends Entity {
                 animations[j][i] = img.getSubimage(i*64, j*40, 64, 40);
             }
         }
+    }
+
+    public void loadLvlData(int[][] lvlData) {
+        this.lvlData = lvlData;
     }
 
     public void resetDirBooleans() {
