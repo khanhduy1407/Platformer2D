@@ -1,7 +1,7 @@
 package com.nkduy.platformer.entities;
 
 import static com.nkduy.platformer.util.Constants.PlayerConstants.*;
-import static com.nkduy.platformer.util.HelpMethods.CanMoveHere;
+import static com.nkduy.platformer.util.HelpMethods.*;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -84,34 +84,37 @@ public class Player extends Entity {
     private void updatePos() {
         moving = false;
 
-        if (!left && !right && !up && !down) {
+        if (!left && !right && !inAir) {
             return;
         }
 
-        float xSpeed = 0, ySpeed = 0;
+        float xSpeed = 0;
 
-        if (left && !right) { // A
-            xSpeed = -playerSpeed;
-        } else if (right && !left) { // D
-            xSpeed = playerSpeed;
+        if (left) { // A
+            xSpeed -= playerSpeed;
+        }
+        if (right) { // D
+            xSpeed += playerSpeed;
         }
 
-        if (up && !down) { // W
-            ySpeed = -playerSpeed;
-        } else if (down && !up) { // S
-            ySpeed = playerSpeed;
+        if (inAir) {
+            //
+        } else {
+            updateXPos(xSpeed);
         }
 
-//        if (CanMoveHere(x + xSpeed, y + ySpeed, width, height, lvlData)) {
-//            this.x += xSpeed;
-//            this.y += ySpeed;
+//        if (CanMoveHere(hitbox.x + xSpeed, hitbox.y + ySpeed, hitbox.width, hitbox.height, lvlData)) {
+//            hitbox.x += xSpeed;
+//            hitbox.y += ySpeed;
 //            moving = true;
 //        }
+    }
 
-        if (CanMoveHere(hitbox.x + xSpeed, hitbox.y + ySpeed, hitbox.width, hitbox.height, lvlData)) {
+    private void updateXPos(float xSpeed) {
+        if (CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, lvlData)) {
             hitbox.x += xSpeed;
-            hitbox.y += ySpeed;
-            moving = true;
+        } else {
+            hitbox.x = GetEntityXPosNextToWall(hitbox, xSpeed);
         }
     }
 
