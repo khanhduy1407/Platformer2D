@@ -2,6 +2,7 @@ package com.nkduy.platformer.main;
 
 import com.nkduy.platformer.entities.Player;
 import com.nkduy.platformer.levels.LevelManager;
+import com.nkduy.platformer.states.GameState;
 
 import java.awt.*;
 
@@ -49,13 +50,27 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        levelManager.update();
-        player.update();
+        switch (GameState.state) {
+            case MENU:
+                break;
+            case PLAYING:
+                levelManager.update();
+                player.update();
+                break;
+            default: break;
+        }
     }
 
     public void render(Graphics g) {
-        levelManager.draw(g);
-        player.render(g);
+        switch (GameState.state) {
+            case MENU:
+                break;
+            case PLAYING:
+                levelManager.draw(g);
+                player.render(g);
+                break;
+            default: break;
+        }
     }
 
     @Override
