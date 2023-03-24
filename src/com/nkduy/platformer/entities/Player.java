@@ -15,11 +15,18 @@ public class Player extends Entity {
     int animTick, animIndex, animSpeed = 25;
     int playerAction = IDLE;
     boolean moving = false, attacking = false;
-    boolean left, up, right, down;
+    boolean left, up, right, down, jump;
     float playerSpeed = 2.0f;
     int[][] lvlData;
     float xDrawOffset = 21 * Game.SCALE;
     float yDrawOffset = 4 * Game.SCALE;
+
+    // Jumping / Gravity
+    float airSpeed = 0f;
+    float gravity = 0.4f * Game.SCALE;
+    float jumpSpeed = -2.25f * Game.SCALE;
+    float fallSpeedAfterCollision = 0.5f * Game.SCALE;
+    boolean inAir = false;
 
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
