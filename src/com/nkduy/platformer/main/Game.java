@@ -1,8 +1,8 @@
 package com.nkduy.platformer.main;
 
-import com.nkduy.platformer.entities.Player;
-import com.nkduy.platformer.levels.LevelManager;
 import com.nkduy.platformer.states.GameState;
+import com.nkduy.platformer.states.Menu;
+import com.nkduy.platformer.states.Playing;
 
 import java.awt.*;
 
@@ -16,8 +16,8 @@ public class Game implements Runnable {
     final int FPS_SET = 120;
     final int UPS_SET = 200;
 
-    Player player;
-    LevelManager levelManager;
+    Playing playing;
+    Menu menu;
 
     public static final int TILES_DEFAULT_SIZE = 32;
     public static final float SCALE = 1.0f;
@@ -39,9 +39,8 @@ public class Game implements Runnable {
     }
 
     private void initClasses() {
-        levelManager = new LevelManager(this);
-        player = new Player(200, 200, (int) (64*SCALE), (int) (40*SCALE));
-        player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
+        menu = new Menu(this);
+        playing = new Playing(this);
     }
 
     private void startGameLoop() {
@@ -52,10 +51,10 @@ public class Game implements Runnable {
     public void update() {
         switch (GameState.state) {
             case MENU:
+                menu.update();
                 break;
             case PLAYING:
-                levelManager.update();
-                player.update();
+                playing.update();
                 break;
             default: break;
         }
@@ -64,10 +63,10 @@ public class Game implements Runnable {
     public void render(Graphics g) {
         switch (GameState.state) {
             case MENU:
+                menu.draw(g);
                 break;
             case PLAYING:
-                levelManager.draw(g);
-                player.render(g);
+                playing.draw(g);
                 break;
             default: break;
         }
@@ -120,10 +119,16 @@ public class Game implements Runnable {
     }
 
     public void windowFocusLost() {
-        player.resetDirBooleans();
+        if (GameState.state == GameState.PLAYING) {
+            playing.getPlayer().resetDirBooleans();
+        }
     }
 
-    public Player getPlayer() {
-        return player;
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public Playing getPlaying() {
+        return playing;
     }
 }

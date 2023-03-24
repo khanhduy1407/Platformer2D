@@ -1,10 +1,16 @@
 package com.nkduy.platformer.states;
 
+import com.nkduy.platformer.main.Game;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public class Menu implements StateMethods {
+public class Menu extends State implements StateMethods {
+
+    public Menu(Game game) {
+        super(game);
+    }
 
     @Override
     public void update() {
@@ -13,7 +19,8 @@ public class Menu implements StateMethods {
 
     @Override
     public void draw(Graphics g) {
-
+        g.setColor(Color.black);
+        g.drawString("MENU", Game.GAME_WIDTH/2, 200);
     }
 
     @Override
@@ -38,7 +45,9 @@ public class Menu implements StateMethods {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            GameState.state = GameState.PLAYING;
+        }
     }
 
     @Override
