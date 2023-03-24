@@ -1,6 +1,9 @@
 package com.nkduy.platformer.states;
 
 import com.nkduy.platformer.main.Game;
+import com.nkduy.platformer.ui.MenuButton;
+
+import java.awt.event.MouseEvent;
 
 public class State {
 
@@ -8,6 +11,10 @@ public class State {
 
     public State(Game game) {
         this.game = game;
+    }
+
+    public boolean isIn(MouseEvent e, MenuButton mb) {
+        return mb.getBounds().contains(e.getX(), e.getY());
     }
 
     public Game getGame() {
