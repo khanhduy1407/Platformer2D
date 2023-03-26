@@ -5,7 +5,7 @@ import com.nkduy.platformer.util.LoadSave;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static com.nkduy.platformer.util.Constants.UI.PauseButton.SOUND_SIZE_DEFAULT;
+import static com.nkduy.platformer.util.Constants.UI.PauseButtons.SOUND_SIZE_DEFAULT;
 
 public class SoundButton extends PauseButton {
 
