@@ -9,8 +9,9 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import static com.nkduy.platformer.util.Constants.UI.PauseButtons.SOUND_SIZE;
-import static com.nkduy.platformer.util.Constants.UI.URMButtons.URM_SIZE;
+import static com.nkduy.platformer.util.Constants.UI.PauseButtons.*;
+import static com.nkduy.platformer.util.Constants.UI.URMButtons.*;
+import static com.nkduy.platformer.util.Constants.UI.VolumeButtons.*;
 
 public class PauseOverlay {
 
@@ -19,12 +20,20 @@ public class PauseOverlay {
     int bgX, bgY, bgW, bgH;
     SoundButton musicButton, sfxButton;
     UrmButton menuB, replayB, unpauseB;
+    VolumeButton volumeButton;
 
     public PauseOverlay(Playing playing) {
         this.playing = playing;
         loadBackground();
         createSoundButtons();
         createUrmButtons();
+        createVolumeButton();
+    }
+
+    private void createVolumeButton() {
+        int vX = (int) (309 * Game.SCALE);
+        int vY = (int) (278 * Game.SCALE);
+        volumeButton = new VolumeButton(vX, vY, SLIDER_WIDTH, VOLUME_HEIGHT);
     }
 
     private void createUrmButtons() {
@@ -61,6 +70,8 @@ public class PauseOverlay {
         menuB.update();
         replayB.update();
         unpauseB.update();
+
+        volumeButton.update();
     }
 
     public void draw(Graphics g) {
@@ -75,6 +86,9 @@ public class PauseOverlay {
         menuB.draw(g);
         replayB.draw(g);
         unpauseB.draw(g);
+
+        // Volume slider
+        volumeButton.draw(g);
     }
 
     public void mouseDragged(MouseEvent e) {
