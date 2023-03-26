@@ -3,6 +3,7 @@ package com.nkduy.platformer.states;
 import com.nkduy.platformer.entities.Player;
 import com.nkduy.platformer.levels.LevelManager;
 import com.nkduy.platformer.main.Game;
+import com.nkduy.platformer.ui.PauseOverlay;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -12,6 +13,8 @@ public class Playing extends State implements StateMethods {
 
     Player player;
     LevelManager levelManager;
+    PauseOverlay pauseOverlay;
+    boolean paused;
 
     public Playing(Game game) {
         super(game);
@@ -22,6 +25,7 @@ public class Playing extends State implements StateMethods {
         levelManager = new LevelManager(game);
         player = new Player(200, 200, (int) (64*Game.SCALE), (int) (40*Game.SCALE));
         player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
+        pauseOverlay = new PauseOverlay();
     }
 
     @Override
@@ -34,6 +38,8 @@ public class Playing extends State implements StateMethods {
     public void draw(Graphics g) {
         levelManager.draw(g);
         player.render(g);
+
+        pauseOverlay.draw(g);
     }
 
     @Override
