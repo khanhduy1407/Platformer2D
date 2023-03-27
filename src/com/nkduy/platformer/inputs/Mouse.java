@@ -16,7 +16,13 @@ public class Mouse implements MouseListener, MouseMotionListener {
     }
 
     @Override
-    public void mouseDragged(MouseEvent e) { }
+    public void mouseDragged(MouseEvent e) {
+        switch (GameState.state) {
+            case PLAYING:
+                gamePanel.getGame().getPlaying().mouseDragged(e);
+                break;
+        }
+    }
 
     @Override
     public void mouseMoved(MouseEvent e) {
