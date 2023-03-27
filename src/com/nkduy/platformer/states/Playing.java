@@ -11,6 +11,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import static com.nkduy.platformer.util.Constants.Environment.*;
+
 public class Playing extends State implements StateMethods {
 
     Player player;
@@ -25,7 +27,7 @@ public class Playing extends State implements StateMethods {
     int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
     int maxLvlOffsetX = maxTilesOffset * Game.TILES_SIZE;
 
-    BufferedImage backgroundImg;
+    BufferedImage backgroundImg, bigCloud;
 
     public Playing(Game game) {
         super(game);
@@ -33,6 +35,7 @@ public class Playing extends State implements StateMethods {
         initClasses();
 
         backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAYING_BG_IMG);
+        bigCloud = LoadSave.GetSpriteAtlas(LoadSave.BIG_CLOUDS);
     }
 
     private void initClasses() {
@@ -74,6 +77,8 @@ public class Playing extends State implements StateMethods {
     public void draw(Graphics g) {
         g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
 
+        drawClouds(g);
+
         levelManager.draw(g, xLvlOffset);
         player.render(g, xLvlOffset);
 
@@ -81,6 +86,12 @@ public class Playing extends State implements StateMethods {
             g.setColor(new Color(0, 0, 0, 150));
             g.fillRect(0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
             pauseOverlay.draw(g);
+        }
+    }
+
+    private void drawClouds(Graphics g) {
+        for (int i = 0; i < 3; i++) {
+            g.drawImage(bigCloud, 0+i*BIG_CLOUD_WIDTH, (int) (204 * Game.SCALE), BIG_CLOUD_WIDTH, BIG_CLOUD_HEIGHT, null);
         }
     }
 
