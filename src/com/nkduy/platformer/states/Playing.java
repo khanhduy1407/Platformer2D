@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import static com.nkduy.platformer.util.Constants.Environment.*;
 
@@ -27,7 +28,9 @@ public class Playing extends State implements StateMethods {
     int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
     int maxLvlOffsetX = maxTilesOffset * Game.TILES_SIZE;
 
-    BufferedImage backgroundImg, bigCloud;
+    BufferedImage backgroundImg, bigCloud, smallCloud;
+    int[] smallCloudsPos;
+    Random rand = new Random();
 
     public Playing(Game game) {
         super(game);
@@ -36,6 +39,11 @@ public class Playing extends State implements StateMethods {
 
         backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAYING_BG_IMG);
         bigCloud = LoadSave.GetSpriteAtlas(LoadSave.BIG_CLOUDS);
+        smallCloud = LoadSave.GetSpriteAtlas(LoadSave.SMALL_CLOUDS);
+        smallCloudsPos = new int[8];
+        for (int i = 0; i < smallCloudsPos.length; i++) {
+            smallCloudsPos[i] = (int) (90 * Game.SCALE) + rand.nextInt((int) (100 * Game.SCALE));
+        }
     }
 
     private void initClasses() {
@@ -91,7 +99,11 @@ public class Playing extends State implements StateMethods {
 
     private void drawClouds(Graphics g) {
         for (int i = 0; i < 3; i++) {
-            g.drawImage(bigCloud, 0+i*BIG_CLOUD_WIDTH, (int) (204 * Game.SCALE), BIG_CLOUD_WIDTH, BIG_CLOUD_HEIGHT, null);
+            g.drawImage(bigCloud, i*BIG_CLOUD_WIDTH, (int) (204 * Game.SCALE), BIG_CLOUD_WIDTH, BIG_CLOUD_HEIGHT, null);
+        }
+
+        for (int i = 0; i < smallCloudsPos.length; i++) {
+            g.drawImage(smallCloud, SMALL_CLOUD_WIDTH*4*i, smallCloudsPos[i], SMALL_CLOUD_WIDTH, SMALL_CLOUD_HEIGHT, null);
         }
     }
 
