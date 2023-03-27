@@ -4,6 +4,7 @@ import com.nkduy.platformer.entities.Player;
 import com.nkduy.platformer.levels.LevelManager;
 import com.nkduy.platformer.main.Game;
 import com.nkduy.platformer.ui.PauseOverlay;
+import com.nkduy.platformer.util.LoadSave;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -15,6 +16,13 @@ public class Playing extends State implements StateMethods {
     LevelManager levelManager;
     PauseOverlay pauseOverlay;
     boolean paused = false;
+
+    int xLvlOffset;
+    int leftBorder = (int) (0.2 * Game.GAME_WIDTH);
+    int rightBorder = (int) (0.8 * Game.GAME_WIDTH);
+    int lvlTilesWide = LoadSave.GetLevelData()[0].length;
+    int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
+    int maxLvlOffsetX = maxTilesOffset - Game.TILES_SIZE;
 
     public Playing(Game game) {
         super(game);
