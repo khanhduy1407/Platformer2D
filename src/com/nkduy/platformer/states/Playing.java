@@ -22,7 +22,7 @@ public class Playing extends State implements StateMethods {
     int rightBorder = (int) (0.8 * Game.GAME_WIDTH);
     int lvlTilesWide = LoadSave.GetLevelData()[0].length;
     int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
-    int maxLvlOffsetX = maxTilesOffset - Game.TILES_SIZE;
+    int maxLvlOffsetX = maxTilesOffset * Game.TILES_SIZE;
 
     public Playing(Game game) {
         super(game);
@@ -66,8 +66,8 @@ public class Playing extends State implements StateMethods {
 
     @Override
     public void draw(Graphics g) {
-        levelManager.draw(g);
-        player.render(g);
+        levelManager.draw(g, xLvlOffset);
+        player.render(g, xLvlOffset);
 
         if (paused) {
             pauseOverlay.draw(g);
