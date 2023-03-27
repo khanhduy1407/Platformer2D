@@ -41,8 +41,26 @@ public class Playing extends State implements StateMethods {
         if (!paused) {
             levelManager.update();
             player.update();
+            checkCloseToBorder();
         } else {
             pauseOverlay.update();
+        }
+    }
+
+    private void checkCloseToBorder() {
+        int playerX = (int) player.getHitbox().x;
+        int diff = playerX - xLvlOffset;
+
+        if (diff > rightBorder) {
+            xLvlOffset += diff - rightBorder;
+        } else if (diff < leftBorder) {
+            xLvlOffset += diff - leftBorder;
+        }
+
+        if (xLvlOffset > maxLvlOffsetX) {
+            xLvlOffset = maxLvlOffsetX;
+        } else if (xLvlOffset < 0) {
+            xLvlOffset = 0;
         }
     }
 
