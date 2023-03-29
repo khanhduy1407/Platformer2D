@@ -25,6 +25,7 @@ public class EnemyManager {
 
     private void addEnemies() {
         crabbies = LoadSave.GetCrabs();
+        System.out.println("Size of crabs: " + crabbies.size());
     }
 
     public void update() {
