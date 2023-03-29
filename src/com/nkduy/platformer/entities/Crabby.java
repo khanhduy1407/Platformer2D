@@ -2,7 +2,9 @@ package com.nkduy.platformer.entities;
 
 import com.nkduy.platformer.main.Game;
 
+import static com.nkduy.platformer.util.Constants.Directions.LEFT;
 import static com.nkduy.platformer.util.Constants.EnemyConstants.*;
+import static com.nkduy.platformer.util.HelpMethods.*;
 
 public class Crabby extends Enemy {
 
@@ -10,5 +12,52 @@ public class Crabby extends Enemy {
         super(x, y, CRABBY_WIDTH, CRABBY_HEIGHT, CRABBY);
 
         initHitbox(x, y, (int) (22* Game.SCALE), (int) (19*Game.SCALE));
+    }
+
+    public void update(int[][] lvlData) {
+        updateMove(lvlData);
+        updateAnimationTick();
+    }
+
+    private void updateMove(int[][] lvlData) {
+        if (firstUpdate) {
+            if (!IsEntityOnFloor(hitbox, lvlData)) {
+                inAir = true;
+            }
+            firstUpdate = false;
+        }
+
+        if (inAir) {
+            if (CanMoveHere(hitbox.x, hitbox.y, hitbox.width, hitbox.height, lvlData)) {
+                hitbox.y += fallSpeed;
+                fallSpeed += gravity;
+            } else {
+                inAir = false;
+                hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, fallSpeed);
+            }
+        } else {
+            switch (enemyState) {
+                case IDLE: enemyState = RUNNING; break;
+                case RUNNING:
+                    float xSpeed = 0;
+
+                    if (walkDir == LEFT) {
+                        xSpeed = -walkSpeed;
+                    } else {
+                        xSpeed = walkSpeed;
+                    }
+
+                    if (CanMoveHere(hitbox.x+xSpeed, hitbox.y, hitbox.width, hitbox.height, lvlData)) {
+                        if (IsFloor(hitbox, xSpeed, lvlData)) {
+                            hitbox.x += xSpeed;
+                            return;
+                        }
+                    }
+
+                    changeWalkDir();
+
+                    break;
+            }
+        }
     }
 }
