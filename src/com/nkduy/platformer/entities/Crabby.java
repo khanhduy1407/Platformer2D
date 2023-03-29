@@ -28,7 +28,7 @@ public class Crabby extends Enemy {
             updateInAir(lvlData);
         } else {
             switch (enemyState) {
-                case IDLE: enemyState = RUNNING; break;
+                case IDLE: newState(RUNNING); break;
                 case RUNNING: move(lvlData); break;
             }
         }
