@@ -3,7 +3,7 @@ package com.nkduy.platformer.entities;
 import static com.nkduy.platformer.util.Constants.PlayerConstants.*;
 import static com.nkduy.platformer.util.HelpMethods.*;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import com.nkduy.platformer.main.Game;
@@ -40,6 +40,10 @@ public class Player extends Entity {
     int healthBarXStart = (int) (34 * Game.SCALE);
     int healthBarYStart = (int) (14 * Game.SCALE);
 
+    int maxHealth = 100;
+    int currentHealth = 40;
+    int healthWidth = healthBarWidth;
+
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
 
@@ -48,9 +52,14 @@ public class Player extends Entity {
     }
 
     public void update() {
+        updateHealthBar();
         updatePos();
         updateAnimationTick();
         setAnimation();
+    }
+
+    private void updateHealthBar() {
+        healthWidth = (int) ((currentHealth / (float) maxHealth) * healthBarWidth);
     }
 
     public void render(Graphics g, int lvlOffset) {
@@ -62,6 +71,8 @@ public class Player extends Entity {
 
     private void drawUI(Graphics g) {
         g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
+        g.setColor(Color.red);
+        g.fillRect(healthBarXStart+statusBarX, healthBarYStart+statusBarY, healthWidth, healthBarHeight);
     }
 
     private void updateAnimationTick() {
