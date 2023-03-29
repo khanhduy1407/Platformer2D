@@ -1,5 +1,7 @@
 package com.nkduy.platformer.entities;
 
+import static com.nkduy.platformer.util.Constants.EnemyConstants.*;
+
 public abstract class Enemy extends Entity {
 
     int animIndex, enemyState, enemyType;
@@ -17,7 +19,7 @@ public abstract class Enemy extends Entity {
         if (animTick >= animSpeed) {
             animTick = 0;
             animIndex++;
-            if (animIndex >= 9999) {
+            if (animIndex >= GetSpriteAmount(enemyType, enemyState)) {
                 animIndex = 0;
             }
         }
