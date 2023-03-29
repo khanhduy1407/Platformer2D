@@ -80,10 +80,13 @@ public class HelpMethods {
         return true;
     }
 
+    /**
+     * We just check the bottomLeft of the enemy here +/- the xSpeed. We never check bottom right in case the
+     * enemy is going to the right. It would be more correct checking the bottomLeft for left direction and
+     * bottomRight for the right direction. But it won't have big effected in the game. The enemy will simply change
+     * direction sooner when there is an edge on the right side of the enemy, when it's going right.
+     */
     public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] lvlData) {
-        // We are just checking left side (x +/- xSpeed) of the enemy, regardless of walkDir.
-        // A more correct way would be to check left side (x - xSpeed) for LEFT dir and right side
-        // (x + width + xSpeed) for RIGHT dir. But our current method will work well enough :)
         return IsSolid(hitbox.x + xSpeed, hitbox.y + hitbox.height + 1, lvlData);
     }
 }
