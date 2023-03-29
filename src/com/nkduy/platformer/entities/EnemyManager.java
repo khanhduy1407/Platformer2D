@@ -1,6 +1,5 @@
 package com.nkduy.platformer.entities;
 
-import com.nkduy.platformer.entities.Crabby;
 import com.nkduy.platformer.states.Playing;
 import com.nkduy.platformer.util.LoadSave;
 
@@ -25,7 +24,7 @@ public class EnemyManager {
 
     private void addEnemies() {
         crabbies = LoadSave.GetCrabs();
-        System.out.println("Size of crabs: " + crabbies.size());
+//        System.out.println("Size of crabs: " + crabbies.size());
     }
 
     public void update(int[][] lvlData) {
@@ -40,7 +39,9 @@ public class EnemyManager {
 
     private void drawCrabs(Graphics g, int xLvlOffset) {
         for (Crabby c: crabbies) {
-            g.drawImage(crabbyArr[c.getEnemyState()][c.getAnimIndex()], (int) c.getHitbox().x-xLvlOffset, (int) c.getHitbox().y, CRABBY_WIDTH, CRABBY_HEIGHT, null);
+            g.drawImage(crabbyArr[c.getEnemyState()][c.getAnimIndex()], (int) c.getHitbox().x - xLvlOffset - CRABBY_DRAWOFFSET_X,
+                    (int) c.getHitbox().y - CRABBY_DRAWOFFSET_Y, CRABBY_WIDTH, CRABBY_HEIGHT, null);
+//			c.drawHitbox(g, xLvlOffset);
         }
     }
 
