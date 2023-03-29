@@ -2,20 +2,39 @@ package com.nkduy.platformer.entities;
 
 import com.nkduy.platformer.main.Game;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
 import static com.nkduy.platformer.util.Constants.Directions.*;
 import static com.nkduy.platformer.util.Constants.EnemyConstants.*;
 
 public class Crabby extends Enemy {
 
+    // Attack box
+    Rectangle2D.Float attackBox;
+    int attackBoxOffsetX;
+
     public Crabby(float x, float y) {
         super(x, y, CRABBY_WIDTH, CRABBY_HEIGHT, CRABBY);
 
         initHitbox(x, y, (int) (22* Game.SCALE), (int) (19*Game.SCALE));
+        initAttackBox();
+    }
+
+    private void initAttackBox() {
+        attackBox = new Rectangle2D.Float(x, y, (int) (82*Game.SCALE), (int) (19*Game.SCALE));
+        attackBoxOffsetX = (int) (Game.SCALE * 30);
     }
 
     public void update(int[][] lvlData, Player player) {
         updateMove(lvlData, player);
         updateAnimationTick();
+        updateAttackBox();
+    }
+
+    private void updateAttackBox() {
+        attackBox.x = hitbox.x - attackBoxOffsetX;
+        attackBox.y = hitbox.y;
     }
 
     private void updateMove(int[][] lvlData, Player player) {
@@ -39,6 +58,11 @@ public class Crabby extends Enemy {
                     break;
             }
         }
+    }
+
+    public void drawAttackBox(Graphics g, int xLvlOffset) {
+        g.setColor(Color.red);
+        g.drawRect((int) (attackBox.x - xLvlOffset), (int) attackBox.y, (int) attackBox.width, (int) attackBox.height);
     }
 
     public int flipX() {
