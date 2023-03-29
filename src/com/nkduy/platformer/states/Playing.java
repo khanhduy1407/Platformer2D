@@ -1,6 +1,7 @@
 package com.nkduy.platformer.states;
 
 import com.nkduy.platformer.entities.Player;
+import com.nkduy.platformer.levels.EnemyManager;
 import com.nkduy.platformer.levels.LevelManager;
 import com.nkduy.platformer.main.Game;
 import com.nkduy.platformer.ui.PauseOverlay;
@@ -18,6 +19,7 @@ public class Playing extends State implements StateMethods {
 
     Player player;
     LevelManager levelManager;
+    EnemyManager enemyManager;
     PauseOverlay pauseOverlay;
     boolean paused = false;
 
@@ -48,6 +50,7 @@ public class Playing extends State implements StateMethods {
 
     private void initClasses() {
         levelManager = new LevelManager(game);
+        enemyManager = new EnemyManager(this);
         player = new Player(200, 200, (int) (64*Game.SCALE), (int) (40*Game.SCALE));
         player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
         pauseOverlay = new PauseOverlay(this);
@@ -58,6 +61,7 @@ public class Playing extends State implements StateMethods {
         if (!paused) {
             levelManager.update();
             player.update();
+            enemyManager.update();
             checkCloseToBorder();
         } else {
             pauseOverlay.update();
@@ -89,6 +93,7 @@ public class Playing extends State implements StateMethods {
 
         levelManager.draw(g, xLvlOffset);
         player.render(g, xLvlOffset);
+        enemyManager.draw(g, xLvlOffset);
 
         if (paused) {
             g.setColor(new Color(0, 0, 0, 150));

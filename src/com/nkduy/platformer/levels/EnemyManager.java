@@ -33,13 +33,13 @@ public class EnemyManager {
         }
     }
 
-    public void draw(Graphics g) {
-        drawCrabs(g);
+    public void draw(Graphics g, int xLvlOffset) {
+        drawCrabs(g, xLvlOffset);
     }
 
-    private void drawCrabs(Graphics g) {
+    private void drawCrabs(Graphics g, int xLvlOffset) {
         for (Crabby c: crabbies) {
-            g.drawImage(crabbyArr[c.getEnemyState()][c.getAnimIndex()], (int) c.getHitbox().x, (int) c.getHitbox().y, CRABBY_WIDTH, CRABBY_HEIGHT, null);
+            g.drawImage(crabbyArr[c.getEnemyState()][c.getAnimIndex()], (int) c.getHitbox().x-xLvlOffset, (int) c.getHitbox().y, CRABBY_WIDTH, CRABBY_HEIGHT, null);
         }
     }
 
