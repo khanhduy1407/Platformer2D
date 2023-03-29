@@ -131,7 +131,7 @@ public class Player extends Entity {
         }
 
         if (attacking) {
-            playerAction = ATTACK_1;
+            playerAction = ATTACK;
         }
 
         if (startAnim != playerAction) {
@@ -229,7 +229,7 @@ public class Player extends Entity {
     private void loadAnimations() {
         BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
 
-        animations = new BufferedImage[9][6];
+        animations = new BufferedImage[7][8];
 
         for (int j = 0; j < animations.length; j++) {
             for (int i = 0; i < animations[j].length; i++) {
