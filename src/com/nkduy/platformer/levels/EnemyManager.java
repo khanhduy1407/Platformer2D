@@ -20,6 +20,11 @@ public class EnemyManager {
         this.playing = playing;
 
         loadEnemyImgs();
+        addEnemies();
+    }
+
+    private void addEnemies() {
+        crabbies = LoadSave.GetCrabs();
     }
 
     public void update() {
