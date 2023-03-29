@@ -8,6 +8,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import com.nkduy.platformer.main.Game;
+import com.nkduy.platformer.states.Playing;
 import com.nkduy.platformer.util.LoadSave;
 
 public class Player extends Entity {
@@ -51,8 +52,13 @@ public class Player extends Entity {
     int flipX = 0;
     int flipW = 1;
 
-    public Player(float x, float y, int width, int height) {
+    boolean attackChecked;
+
+    Playing playing;
+
+    public Player(float x, float y, int width, int height, Playing playing) {
         super(x, y, width, height);
+        this.playing = playing;
 
         loadAnimations();
         initHitbox(x, y, (int) (20 * Game.SCALE), (int) (27 * Game.SCALE));
@@ -68,8 +74,19 @@ public class Player extends Entity {
         updateAttackBox();
 
         updatePos();
+        if (attacking) {
+            checkAttack();
+        }
         updateAnimationTick();
         setAnimation();
+    }
+
+    private void checkAttack() {
+        if (attackChecked || animIndex != 1) {
+            return;
+        }
+        attackChecked = true;
+        playing.checkEnemyHit(attackBox);
     }
 
     private void updateAttackBox() {
@@ -115,6 +132,7 @@ public class Player extends Entity {
             if (animIndex >= GetSpriteAmount(playerAction)) {
                 animIndex = 0;
                 attacking = false;
+                attackChecked = false;
             }
         }
     }

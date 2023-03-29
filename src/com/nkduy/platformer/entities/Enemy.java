@@ -2,6 +2,8 @@ package com.nkduy.platformer.entities;
 
 import com.nkduy.platformer.main.Game;
 
+import java.awt.geom.Rectangle2D;
+
 import static com.nkduy.platformer.util.Constants.Directions.*;
 import static com.nkduy.platformer.util.Constants.EnemyConstants.*;
 import static com.nkduy.platformer.util.HelpMethods.*;
@@ -21,6 +23,7 @@ public abstract class Enemy extends Entity {
     protected int maxHealth;
     protected int currentHealth;
     protected boolean active = true;
+    protected boolean attackChecked;
 
     public Enemy(float x, float y, int width, int height, int enemyType) {
         super(x, y, width, height);
@@ -114,6 +117,13 @@ public abstract class Enemy extends Entity {
         } else {
             newState(HIT);
         }
+    }
+
+    protected void checkPlayerHit(Rectangle2D.Float attackBox, Player player) {
+        if (attackBox.intersects(player.hitbox)) {
+            player.changeHealth(-GetEnemyDmg(enemyType));
+        }
+        attackChecked = true;
     }
 
     protected void updateAnimationTick() {
