@@ -63,6 +63,14 @@ public abstract class Enemy extends Entity {
         changeWalkDir();
     }
 
+    protected void turnTowardsPlayer(Player player) {
+        if (player.hitbox.x > hitbox.x) {
+            walkDir = RIGHT;
+        } else {
+            walkDir = LEFT;
+        }
+    }
+
     protected boolean canSeePlayer(int[][] lvlData, Player player) {
         int playerTileY = (int) (player.getHitbox().y/Game.TILES_SIZE);
         if (playerTileY == tileY) {
