@@ -1,4 +1,4 @@
-package com.nkduy.platformer.levels;
+package com.nkduy.platformer.entities;
 
 import com.nkduy.platformer.entities.Crabby;
 import com.nkduy.platformer.states.Playing;

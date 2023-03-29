@@ -1,7 +1,7 @@
 package com.nkduy.platformer.states;
 
 import com.nkduy.platformer.entities.Player;
-import com.nkduy.platformer.levels.EnemyManager;
+import com.nkduy.platformer.entities.EnemyManager;
 import com.nkduy.platformer.levels.LevelManager;
 import com.nkduy.platformer.main.Game;
 import com.nkduy.platformer.ui.PauseOverlay;
