@@ -112,6 +112,10 @@ public class Playing extends State implements StateMethods {
         }
     }
 
+    public void resetAll() {
+        // TODO: reset playing, enemy, lvl etc.
+    }
+
     public void mouseDragged(MouseEvent e) {
         if (paused) {
             pauseOverlay.mouseDragged(e);
