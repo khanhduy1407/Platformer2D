@@ -6,6 +6,7 @@ import com.nkduy.platformer.util.LoadSave;
 import static com.nkduy.platformer.util.Constants.EnemyConstants.*;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -45,6 +46,15 @@ public class EnemyManager {
                         CRABBY_WIDTH * c.flipW(), CRABBY_HEIGHT, null);
 //			c.drawHitbox(g, xLvlOffset);
 			c.drawAttackBox(g, xLvlOffset);
+        }
+    }
+
+    public void checkEnemyHit(Rectangle2D.Float attackBox) {
+        for (Crabby c: crabbies) {
+            if (attackBox.intersects(c.getHitbox())) {
+                c.hurt(10);
+                return;
+            }
         }
     }
 

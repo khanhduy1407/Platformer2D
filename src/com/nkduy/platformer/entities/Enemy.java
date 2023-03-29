@@ -105,6 +105,16 @@ public abstract class Enemy extends Entity {
         animIndex = 0;
     }
 
+    public void hurt(int amount) {
+        currentHealth -= amount;
+
+        if (currentHealth <= 0) {
+            newState(DEAD);
+        } else {
+            newState(HIT);
+        }
+    }
+
     protected void updateAnimationTick() {
         animTick++;
         if (animTick >= animSpeed) {
