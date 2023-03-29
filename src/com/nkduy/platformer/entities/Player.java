@@ -43,7 +43,7 @@ public class Player extends Entity {
     int healthBarYStart = (int) (14 * Game.SCALE);
 
     int maxHealth = 100;
-    int currentHealth = 40;
+    int currentHealth = maxHealth;
     int healthWidth = healthBarWidth;
 
     // Attack box
@@ -71,6 +71,12 @@ public class Player extends Entity {
 
     public void update() {
         updateHealthBar();
+
+        if (currentHealth <= 0) {
+            playing.setGameOver(true);
+            return;
+        }
+
         updateAttackBox();
 
         updatePos();
