@@ -46,7 +46,10 @@ public class Player extends Entity {
     int healthWidth = healthBarWidth;
 
     // Attack box
-    private Rectangle2D.Float attackBox;
+    Rectangle2D.Float attackBox;
+
+    int flipX = 0;
+    int flipW = 1;
 
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
@@ -83,7 +86,10 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g, int lvlOffset) {
-        g.drawImage(animations[playerAction][animIndex], (int) (hitbox.x-xDrawOffset)-lvlOffset, (int) (hitbox.y-yDrawOffset), width, height, null);
+        g.drawImage(animations[playerAction][animIndex],
+                    (int) (hitbox.x - xDrawOffset) - lvlOffset + flipX,
+                    (int) (hitbox.y - yDrawOffset),
+                    width * flipW, height, null);
 //        drawHitbox(g, lvlOffset);
         drawAttackBox(g, lvlOffset);
 
@@ -160,9 +166,13 @@ public class Player extends Entity {
 
         if (left) { // A
             xSpeed -= playerSpeed;
+            flipX = width;
+            flipW = -1;
         }
         if (right) { // D
             xSpeed += playerSpeed;
+            flipX = 0;
+            flipW = 1;
         }
 
         if (!inAir) {
