@@ -4,6 +4,7 @@ import static com.nkduy.platformer.util.Constants.PlayerConstants.*;
 import static com.nkduy.platformer.util.HelpMethods.*;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import com.nkduy.platformer.main.Game;
@@ -44,18 +45,37 @@ public class Player extends Entity {
     int currentHealth = 40;
     int healthWidth = healthBarWidth;
 
+    // Attack box
+    private Rectangle2D.Float attackBox;
+
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
 
         loadAnimations();
         initHitbox(x, y, (int) (20 * Game.SCALE), (int) (27 * Game.SCALE));
+        initAttackBox();
+    }
+
+    private void initAttackBox() {
+        attackBox = new Rectangle2D.Float(x, y, (int) (20*Game.SCALE), (int) (20*Game.SCALE));
     }
 
     public void update() {
         updateHealthBar();
+        updateAttackBox();
+
         updatePos();
         updateAnimationTick();
         setAnimation();
+    }
+
+    private void updateAttackBox() {
+        if (right) {
+            attackBox.x = hitbox.x + hitbox.width + (int) (Game.SCALE*10);
+        } else if (left) {
+            attackBox.x = hitbox.x - hitbox.width - (int) (Game.SCALE*10);
+        }
+        attackBox.y = hitbox.y + (Game.SCALE*10);
     }
 
     private void updateHealthBar() {
@@ -65,8 +85,14 @@ public class Player extends Entity {
     public void render(Graphics g, int lvlOffset) {
         g.drawImage(animations[playerAction][animIndex], (int) (hitbox.x-xDrawOffset)-lvlOffset, (int) (hitbox.y-yDrawOffset), width, height, null);
 //        drawHitbox(g, lvlOffset);
+        drawAttackBox(g, lvlOffset);
 
         drawUI(g);
+    }
+
+    private void drawAttackBox(Graphics g, int lvlOffsetX) {
+        g.setColor(Color.red);
+        g.drawRect((int) attackBox.x - lvlOffsetX, (int) attackBox.y, (int) attackBox.width, (int) attackBox.height);
     }
 
     private void drawUI(Graphics g) {
