@@ -17,6 +17,7 @@ public abstract class Enemy extends Entity {
     protected float walkSpeed = 0.5f * Game.SCALE;
     protected float walkDir = LEFT;
     protected int tileY;
+    protected float attackDistance = Game.TILES_SIZE;
 
     public Enemy(float x, float y, int width, int height, int enemyType) {
         super(x, y, width, height);
@@ -73,6 +74,11 @@ public abstract class Enemy extends Entity {
         }
 
         return false;
+    }
+
+    private boolean isPlayerInRange(Player player) {
+        int absValue = (int) Math.abs(player.hitbox.x - hitbox.x);
+        return absValue <= attackDistance*5;
     }
 
     protected void newState(int enemyState) {
