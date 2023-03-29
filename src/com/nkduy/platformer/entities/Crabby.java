@@ -2,9 +2,8 @@ package com.nkduy.platformer.entities;
 
 import com.nkduy.platformer.main.Game;
 
-import static com.nkduy.platformer.util.Constants.Directions.LEFT;
+import static com.nkduy.platformer.util.Constants.Directions.*;
 import static com.nkduy.platformer.util.Constants.EnemyConstants.*;
-import static com.nkduy.platformer.util.HelpMethods.*;
 
 public class Crabby extends Enemy {
 
@@ -39,6 +38,22 @@ public class Crabby extends Enemy {
                     move(lvlData);
                     break;
             }
+        }
+    }
+
+    public int flipX() {
+        if (walkDir == RIGHT) {
+            return width;
+        } else {
+            return 0;
+        }
+    }
+
+    public int flipW() {
+        if (walkDir == RIGHT) {
+            return -1;
+        } else {
+            return 1;
         }
     }
 }
