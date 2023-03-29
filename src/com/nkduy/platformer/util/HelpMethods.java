@@ -79,4 +79,11 @@ public class HelpMethods {
 
         return true;
     }
+
+    public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] lvlData) {
+        // We are just checking left side (x +/- xSpeed) of the enemy, regardless of walkDir.
+        // A more correct way would be to check left side (x - xSpeed) for LEFT dir and right side
+        // (x + width + xSpeed) for RIGHT dir. But our current method will work well enough :)
+        return IsSolid(hitbox.x + xSpeed, hitbox.y + hitbox.height + 1, lvlData);
+    }
 }

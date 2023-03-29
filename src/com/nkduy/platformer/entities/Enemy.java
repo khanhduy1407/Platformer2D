@@ -2,6 +2,7 @@ package com.nkduy.platformer.entities;
 
 import com.nkduy.platformer.main.Game;
 
+import static com.nkduy.platformer.util.Constants.Directions.*;
 import static com.nkduy.platformer.util.Constants.EnemyConstants.*;
 import static com.nkduy.platformer.util.HelpMethods.*;
 
@@ -13,6 +14,8 @@ public abstract class Enemy extends Entity {
     boolean inAir;
     float fallSpeed;
     float gravity = 0.04f * Game.SCALE;
+    float walkSpeed = 0.5f * Game.SCALE;
+    float walkDir = LEFT;
 
     public Enemy(float x, float y, int width, int height, int enemyType) {
         super(x, y, width, height);
@@ -42,7 +45,9 @@ public abstract class Enemy extends Entity {
             if (!IsEntityOnFloor(hitbox, lvlData)) {
                 inAir = true;
             }
+            firstUpdate = false;
         }
+
         if (inAir) {
             if (CanMoveHere(hitbox.x, hitbox.y, hitbox.width, hitbox.height, lvlData)) {
                 hitbox.y += fallSpeed;
@@ -52,7 +57,36 @@ public abstract class Enemy extends Entity {
                 hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, fallSpeed);
             }
         } else {
-            //
+            switch (enemyState) {
+                case IDLE: enemyState = RUNNING; break;
+                case RUNNING:
+                    float xSpeed = 0;
+
+                    if (walkDir == LEFT) {
+                        xSpeed = -walkSpeed;
+                    } else {
+                        xSpeed = walkSpeed;
+                    }
+
+                    if (CanMoveHere(hitbox.x+xSpeed, hitbox.y, hitbox.width, hitbox.height, lvlData)) {
+                        if (IsFloor(hitbox, xSpeed, lvlData)) {
+                            hitbox.x += xSpeed;
+                            return;
+                        }
+                    }
+
+                    changeWalkDir();
+
+                    break;
+            }
+        }
+    }
+
+    private void changeWalkDir() {
+        if (walkDir == LEFT) {
+            walkDir = RIGHT;
+        } else {
+            walkDir = LEFT;
         }
     }
 
