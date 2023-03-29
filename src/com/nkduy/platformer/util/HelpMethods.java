@@ -99,6 +99,9 @@ public class HelpMethods {
             if (IsTileSolid(xStart + i, y, lvlData)) {
                 return false;
             }
+            if (!IsTileSolid(xStart + i, y + 1, lvlData)) {
+                return false;
+            }
         }
 
         return true;
