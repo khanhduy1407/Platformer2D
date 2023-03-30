@@ -29,10 +29,15 @@ public class EnemyManager {
     }
 
     public void update(int[][] lvlData, Player player) {
+        boolean isAnyActive = false;
         for (Crabby c: crabbies) {
             if (c.isActive()) {
                 c.update(lvlData, player);
+                isAnyActive = true;
             }
+        }
+        if (!isAnyActive) {
+            playing.setLevelCompleted(true);
         }
     }
 

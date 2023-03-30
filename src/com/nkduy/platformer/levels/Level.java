@@ -28,7 +28,7 @@ public class Level {
     private void calcLvlOffsets() {
         lvlTilesWide = img.getWidth();
         maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
-        maxLvlOffsetX = Game.TILES_SIZE;
+        maxLvlOffsetX = Game.TILES_SIZE * maxTilesOffset;
     }
 
     private void createEnemies() {

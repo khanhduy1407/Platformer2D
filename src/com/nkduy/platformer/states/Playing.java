@@ -247,6 +247,10 @@ public class Playing extends State implements StateMethods {
         }
     }
 
+    public void setLevelCompleted(boolean levelCompleted) {
+        this.lvlCompleted = levelCompleted;
+    }
+
     public void setMaxLvlOffset(int lvlOffset) {
         this.maxLvlOffsetX = lvlOffset;
     }
