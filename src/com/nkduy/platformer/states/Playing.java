@@ -5,6 +5,7 @@ import com.nkduy.platformer.entities.EnemyManager;
 import com.nkduy.platformer.levels.LevelManager;
 import com.nkduy.platformer.main.Game;
 import com.nkduy.platformer.ui.GameOverOverlay;
+import com.nkduy.platformer.ui.LevelCompletedOverlay;
 import com.nkduy.platformer.ui.PauseOverlay;
 import com.nkduy.platformer.util.LoadSave;
 
@@ -24,6 +25,7 @@ public class Playing extends State implements StateMethods {
     EnemyManager enemyManager;
     PauseOverlay pauseOverlay;
     GameOverOverlay gameOverOverlay;
+    LevelCompletedOverlay levelCompletedOverlay;
     boolean paused = false;
 
     int xLvlOffset;
@@ -60,6 +62,7 @@ public class Playing extends State implements StateMethods {
         player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
         pauseOverlay = new PauseOverlay(this);
         gameOverOverlay = new GameOverOverlay(this);
+        levelCompletedOverlay = new LevelCompletedOverlay(this);
     }
 
     @Override
@@ -108,6 +111,8 @@ public class Playing extends State implements StateMethods {
         } else if (gameOver) {
             gameOverOverlay.draw(g);
         }
+
+        levelCompletedOverlay.draw(g);
     }
 
     private void drawClouds(Graphics g) {
