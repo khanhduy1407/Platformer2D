@@ -2,7 +2,6 @@ package com.nkduy.platformer.levels;
 
 import com.nkduy.platformer.entities.Crabby;
 import com.nkduy.platformer.main.Game;
-import com.nkduy.platformer.util.LoadSave;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -48,7 +47,7 @@ public class Level {
         return lvlData;
     }
 
-    public int getMaxLvlOffsetX() {
+    public int getLvlOffset() {
         return maxLvlOffsetX;
     }
 
