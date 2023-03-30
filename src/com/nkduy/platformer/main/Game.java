@@ -29,7 +29,6 @@ public class Game implements Runnable {
     public static final int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
 
     public Game() {
-        LoadSave.GetAllLevels();
         initClasses();
 
         gamePanel = new GamePanel(this);

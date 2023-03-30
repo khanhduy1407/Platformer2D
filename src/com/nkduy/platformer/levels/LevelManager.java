@@ -1,6 +1,7 @@
 package com.nkduy.platformer.levels;
 
 import com.nkduy.platformer.main.Game;
+import com.nkduy.platformer.states.GameState;
 import com.nkduy.platformer.util.LoadSave;
 
 import java.awt.*;
@@ -19,6 +20,20 @@ public class LevelManager {
         importOutsideSprites();
         levels = new ArrayList<>();
         buildAllLevels();
+    }
+
+    public void loadNextLevel() {
+        lvlIndex++;
+        if (lvlIndex >= levels.size()) {
+            lvlIndex = 0;
+            System.out.println("No more levels! Game Completed!");
+            GameState.state = GameState.MENU;
+        }
+
+        Level newLevel = levels.get(lvlIndex);
+        game.getPlaying().getEnemyManager().loadEnemies(newLevel);
+        game.getPlaying().getPlayer().loadLvlData(newLevel.getLevelData());
+        game.getPlaying().setMaxLvlOffset(newLevel.getLvlOffset());
     }
 
     private void buildAllLevels() {

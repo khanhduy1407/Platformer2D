@@ -1,6 +1,7 @@
 package com.nkduy.platformer.ui;
 
 import com.nkduy.platformer.main.Game;
+import com.nkduy.platformer.states.GameState;
 import com.nkduy.platformer.states.Playing;
 import com.nkduy.platformer.util.LoadSave;
 
@@ -69,11 +70,12 @@ public class LevelCompletedOverlay {
     public void mouseReleased(MouseEvent e) {
         if (isIn(menu, e)) {
             if (menu.isMousePressed()) {
-                System.out.println("Menu!");
+                playing.resetAll();
+                GameState.state = GameState.MENU;
             }
         } else if (isIn(next, e)) {
             if (next.isMousePressed()) {
-                System.out.println("Next!");
+                playing.loadNextLevel();
             }
         }
 

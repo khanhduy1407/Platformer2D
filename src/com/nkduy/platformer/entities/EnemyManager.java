@@ -1,5 +1,6 @@
 package com.nkduy.platformer.entities;
 
+import com.nkduy.platformer.levels.Level;
 import com.nkduy.platformer.states.Playing;
 import com.nkduy.platformer.util.LoadSave;
 
@@ -20,11 +21,10 @@ public class EnemyManager {
         this.playing = playing;
 
         loadEnemyImgs();
-        addEnemies();
     }
 
-    private void addEnemies() {
-        crabbies = LoadSave.GetCrabs();
+    public void loadEnemies(Level level) {
+        crabbies = level.getCrabs();
 //        System.out.println("Size of crabs: " + crabbies.size());
     }
 

@@ -31,8 +31,6 @@ public class Playing extends State implements StateMethods {
     int xLvlOffset;
     int leftBorder = (int) (0.2 * Game.GAME_WIDTH);
     int rightBorder = (int) (0.8 * Game.GAME_WIDTH);
-//    int lvlTilesWide = LoadSave.GetLevelData()[0].length;
-//    int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
     int maxLvlOffsetX;
 
     BufferedImage backgroundImg, bigCloud, smallCloud;
@@ -40,7 +38,7 @@ public class Playing extends State implements StateMethods {
     Random rand = new Random();
 
     boolean gameOver;
-    boolean lvlCompleted = true;
+    boolean lvlCompleted;
 
     public Playing(Game game) {
         super(game);
@@ -54,6 +52,22 @@ public class Playing extends State implements StateMethods {
         for (int i = 0; i < smallCloudsPos.length; i++) {
             smallCloudsPos[i] = (int) (90 * Game.SCALE) + rand.nextInt((int) (100 * Game.SCALE));
         }
+
+        calcLvlOffset();
+        loadStartLevel();
+    }
+
+    public void loadNextLevel() {
+        resetAll();
+        levelManager.loadNextLevel();
+    }
+
+    private void loadStartLevel() {
+        enemyManager.loadEnemies(levelManager.getCurrentLevel());
+    }
+
+    private void calcLvlOffset() {
+        maxLvlOffsetX = levelManager.getCurrentLevel().getLvlOffset();
     }
 
     private void initClasses() {
@@ -129,9 +143,9 @@ public class Playing extends State implements StateMethods {
     }
 
     public void resetAll() {
-        // TODO: reset playing, enemy, lvl etc.
         gameOver = false;
         paused = false;
+        lvlCompleted = false;
         player.resetAll();
         enemyManager.resetAllEnemies();
     }
@@ -233,6 +247,10 @@ public class Playing extends State implements StateMethods {
         }
     }
 
+    public void setMaxLvlOffset(int lvlOffset) {
+        this.maxLvlOffsetX = lvlOffset;
+    }
+
     public void unpauseGame() {
         paused = false;
     }
@@ -243,5 +261,9 @@ public class Playing extends State implements StateMethods {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public EnemyManager getEnemyManager() {
+        return enemyManager;
     }
 }
