@@ -31,9 +31,9 @@ public class Playing extends State implements StateMethods {
     int xLvlOffset;
     int leftBorder = (int) (0.2 * Game.GAME_WIDTH);
     int rightBorder = (int) (0.8 * Game.GAME_WIDTH);
-    int lvlTilesWide = LoadSave.GetLevelData()[0].length;
-    int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
-    int maxLvlOffsetX = maxTilesOffset * Game.TILES_SIZE;
+//    int lvlTilesWide = LoadSave.GetLevelData()[0].length;
+//    int maxTilesOffset = lvlTilesWide - Game.TILES_IN_WIDTH;
+    int maxLvlOffsetX;
 
     BufferedImage backgroundImg, bigCloud, smallCloud;
     int[] smallCloudsPos;

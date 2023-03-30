@@ -1,8 +1,15 @@
 package com.nkduy.platformer.util;
 
+import com.nkduy.platformer.entities.Crabby;
 import com.nkduy.platformer.main.Game;
 
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
+import static com.nkduy.platformer.util.Constants.EnemyConstants.CRABBY;
+import static com.nkduy.platformer.util.LoadSave.*;
 
 public class HelpMethods {
 
@@ -121,5 +128,38 @@ public class HelpMethods {
         } else {
             return IsAllTileWalkable(firstXTile, secondXTile, yTile, lvlData);
         }
+    }
+
+    public static int[][] GetLevelData(BufferedImage img) {
+        int[][] lvlData = new int[img.getHeight()][img.getWidth()];
+
+        for (int j = 0; j < img.getHeight(); j++) {
+            for (int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getRed();
+                if (value >= 48) {
+                    value = 0;
+                }
+                lvlData[j][i] = value;
+            }
+        }
+
+        return lvlData;
+    }
+
+    public static ArrayList<Crabby> GetCrabs(BufferedImage img) {
+        ArrayList<Crabby> list = new ArrayList<>();
+
+        for (int j = 0; j < img.getHeight(); j++) {
+            for (int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int value = color.getGreen();
+                if (value == CRABBY) {
+                    list.add(new Crabby(i*Game.TILES_SIZE, j*Game.TILES_SIZE));
+                }
+            }
+        }
+
+        return list;
     }
 }
