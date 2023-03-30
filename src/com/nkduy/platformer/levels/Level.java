@@ -3,6 +3,7 @@ package com.nkduy.platformer.levels;
 import com.nkduy.platformer.entities.Crabby;
 import com.nkduy.platformer.main.Game;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class Level {
     int lvlTilesWide;
     int maxTilesOffset;
     int maxLvlOffsetX;
+    Point playerSpawn;
 
     public Level(BufferedImage img) {
         this.img = img;
@@ -23,6 +25,11 @@ public class Level {
         createLevelData();
         createEnemies();
         calcLvlOffsets();
+        calcPlayerSpawn();
+    }
+
+    private void calcPlayerSpawn() {
+        playerSpawn = GetPlayerSpawn(img);
     }
 
     private void calcLvlOffsets() {
@@ -53,5 +60,9 @@ public class Level {
 
     public ArrayList<Crabby> getCrabs() {
         return crabs;
+    }
+
+    public Point getPlayerSpawn() {
+        return playerSpawn;
     }
 }
