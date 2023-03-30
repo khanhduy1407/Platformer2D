@@ -6,6 +6,7 @@ import java.awt.geom.Rectangle2D;
 
 import static com.nkduy.platformer.util.Constants.Directions.*;
 import static com.nkduy.platformer.util.Constants.EnemyConstants.*;
+import static com.nkduy.platformer.util.Constants.*;
 import static com.nkduy.platformer.util.HelpMethods.*;
 
 public abstract class Enemy extends Entity {
@@ -15,7 +16,6 @@ public abstract class Enemy extends Entity {
     protected boolean firstUpdate = true;
     protected boolean inAir;
     protected float fallSpeed;
-    protected float gravity = 0.04f * Game.SCALE;
     protected float walkSpeed = 0.5f * Game.SCALE;
     protected float walkDir = LEFT;
     protected int tileY;
@@ -45,7 +45,7 @@ public abstract class Enemy extends Entity {
     protected void updateInAir(int[][] lvlData) {
         if (CanMoveHere(hitbox.x, hitbox.y, hitbox.width, hitbox.height, lvlData)) {
             hitbox.y += fallSpeed;
-            fallSpeed += gravity;
+            fallSpeed += GRAVITY;
         } else {
             inAir = false;
             hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, fallSpeed);

@@ -1,5 +1,6 @@
 package com.nkduy.platformer.entities;
 
+import static com.nkduy.platformer.util.Constants.*;
 import static com.nkduy.platformer.util.Constants.PlayerConstants.*;
 import static com.nkduy.platformer.util.HelpMethods.*;
 
@@ -25,7 +26,6 @@ public class Player extends Entity {
 
     // Jumping / Gravity
     float airSpeed = 0f;
-    float gravity = 0.04f * Game.SCALE;
     float jumpSpeed = -2.25f * Game.SCALE;
     float fallSpeedAfterCollision = 0.5f * Game.SCALE;
     boolean inAir = false;
@@ -220,7 +220,7 @@ public class Player extends Entity {
         if (inAir) {
             if (CanMoveHere(hitbox.x, hitbox.y + airSpeed, hitbox.width, hitbox.height, lvlData)) {
                 hitbox.y += airSpeed;
-                airSpeed += gravity;
+                airSpeed += GRAVITY;
                 updateXPos(xSpeed);
             } else {
                 hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
