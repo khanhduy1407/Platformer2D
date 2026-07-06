@@ -15,7 +15,7 @@ import com.nkduy.platformer.util.LoadSave;
 public class Player extends Entity {
 
     BufferedImage[][] animations;
-    int animTick, animIndex, animSpeed = 25;
+    int animTick, animIndex;
     int playerAction = IDLE;
     boolean moving = false, attacking = false;
     boolean left, up, right, down, jump;
@@ -139,7 +139,7 @@ public class Player extends Entity {
 
     private void updateAnimationTick() {
         animTick++;
-        if (animTick >= animSpeed) {
+        if (animTick >= ANIM_SPEED) {
             animTick = 0;
             animIndex++;
             if (animIndex >= GetSpriteAmount(playerAction)) {

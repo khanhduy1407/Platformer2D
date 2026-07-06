@@ -12,7 +12,7 @@ import static com.nkduy.platformer.util.HelpMethods.*;
 public abstract class Enemy extends Entity {
 
     protected int animIndex, enemyState, enemyType;
-    protected int animTick, animSpeed = 25;
+    protected int animTick;
     protected boolean firstUpdate = true;
     protected boolean inAir;
     protected float fallSpeed;
@@ -128,7 +128,7 @@ public abstract class Enemy extends Entity {
 
     protected void updateAnimationTick() {
         animTick++;
-        if (animTick >= animSpeed) {
+        if (animTick >= ANIM_SPEED) {
             animTick = 0;
             animIndex++;
             if (animIndex >= GetSpriteAmount(enemyType, enemyState)) {
