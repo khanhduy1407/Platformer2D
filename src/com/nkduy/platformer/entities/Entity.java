@@ -8,6 +8,7 @@ public abstract class Entity {
     protected float x, y;
     protected int width, height;
     protected Rectangle2D.Float hitbox;
+    protected int animTick, animIndex;
 
     public Entity(float x, float y, int width, int height) {
         this.x = x;

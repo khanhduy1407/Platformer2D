@@ -15,7 +15,7 @@ import com.nkduy.platformer.util.LoadSave;
 public class Player extends Entity {
 
     BufferedImage[][] animations;
-    int animTick, animIndex;
+
     int playerAction = IDLE;
     boolean moving = false, attacking = false;
     boolean left, up, right, down, jump;

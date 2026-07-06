@@ -11,8 +11,8 @@ import static com.nkduy.platformer.util.HelpMethods.*;
 
 public abstract class Enemy extends Entity {
 
-    protected int animIndex, enemyState, enemyType;
-    protected int animTick;
+    protected int enemyState, enemyType;
+
     protected boolean firstUpdate = true;
     protected boolean inAir;
     protected float fallSpeed;
