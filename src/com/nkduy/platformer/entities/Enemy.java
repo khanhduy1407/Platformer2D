@@ -11,7 +11,7 @@ import static com.nkduy.platformer.util.HelpMethods.*;
 
 public abstract class Enemy extends Entity {
 
-    protected int enemyState, enemyType;
+    protected int enemyType;
 
     protected boolean firstUpdate = true;
     protected boolean inAir;
@@ -104,7 +104,7 @@ public abstract class Enemy extends Entity {
     }
 
     protected void newState(int enemyState) {
-        this.enemyState = enemyState;
+        this.state = enemyState;
         animTick = 0;
         animIndex = 0;
     }
@@ -131,11 +131,11 @@ public abstract class Enemy extends Entity {
         if (animTick >= ANIM_SPEED) {
             animTick = 0;
             animIndex++;
-            if (animIndex >= GetSpriteAmount(enemyType, enemyState)) {
+            if (animIndex >= GetSpriteAmount(enemyType, state)) {
                 animIndex = 0;
 
-                switch (enemyState) {
-                    case ATTACK, HIT -> enemyState = IDLE;
+                switch (state) {
+                    case ATTACK, HIT -> state = IDLE;
                     case DEAD -> active = false;
                 }
             }
@@ -162,10 +162,6 @@ public abstract class Enemy extends Entity {
 
     public int getAnimIndex() {
         return animIndex;
-    }
-
-    public int getEnemyState() {
-        return enemyState;
     }
 
     public boolean isActive() {

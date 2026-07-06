@@ -45,7 +45,7 @@ public class Crabby extends Enemy {
         if (inAir) {
             updateInAir(lvlData);
         } else {
-            switch (enemyState) {
+            switch (state) {
                 case IDLE: newState(RUNNING); break;
                 case RUNNING:
                     if (canSeePlayer(lvlData, player)) {

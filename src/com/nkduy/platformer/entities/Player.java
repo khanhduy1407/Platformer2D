@@ -16,7 +16,6 @@ public class Player extends Entity {
 
     BufferedImage[][] animations;
 
-    int playerAction = IDLE;
     boolean moving = false, attacking = false;
     boolean left, up, right, down, jump;
     float playerSpeed = 1.0f * Game.SCALE;
@@ -59,6 +58,7 @@ public class Player extends Entity {
     public Player(float x, float y, int width, int height, Playing playing) {
         super(x, y, width, height);
         this.playing = playing;
+        this.state = IDLE;
 
         loadAnimations();
         initHitbox(x, y, (int) (20 * Game.SCALE), (int) (27 * Game.SCALE));
@@ -116,7 +116,7 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g, int lvlOffset) {
-        g.drawImage(animations[playerAction][animIndex],
+        g.drawImage(animations[state][animIndex],
                     (int) (hitbox.x - xDrawOffset) - lvlOffset + flipX,
                     (int) (hitbox.y - yDrawOffset),
                     width * flipW, height, null);
@@ -142,7 +142,7 @@ public class Player extends Entity {
         if (animTick >= ANIM_SPEED) {
             animTick = 0;
             animIndex++;
-            if (animIndex >= GetSpriteAmount(playerAction)) {
+            if (animIndex >= GetSpriteAmount(state)) {
                 animIndex = 0;
                 attacking = false;
                 attackChecked = false;
@@ -151,24 +151,24 @@ public class Player extends Entity {
     }
 
     private void setAnimation() {
-        int startAnim = playerAction;
+        int startAnim = state;
 
         if (moving) {
-            playerAction = RUNNING;
+            state = RUNNING;
         } else {
-            playerAction = IDLE;
+            state = IDLE;
         }
 
         if (inAir) {
             if (airSpeed < 0) {
-                playerAction = JUMP;
+                state = JUMP;
             } else {
-                playerAction = FALLING;
+                state = FALLING;
             }
         }
 
         if (attacking) {
-            playerAction = ATTACK;
+            state = ATTACK;
             if (startAnim != ATTACK) {
                 animIndex = 1;
                 animTick = 0;
@@ -176,7 +176,7 @@ public class Player extends Entity {
             }
         }
 
-        if (startAnim != playerAction) {
+        if (startAnim != state) {
             resetAnimTick();
         }
     }
@@ -345,7 +345,7 @@ public class Player extends Entity {
         inAir = false;
         attacking = false;
         moving = false;
-        playerAction = IDLE;
+        state = IDLE;
         currentHealth = maxHealth;
 
         hitbox.x = x;

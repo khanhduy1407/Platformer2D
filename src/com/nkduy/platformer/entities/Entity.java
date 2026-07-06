@@ -9,6 +9,7 @@ public abstract class Entity {
     protected int width, height;
     protected Rectangle2D.Float hitbox;
     protected int animTick, animIndex;
+    protected int state;
 
     public Entity(float x, float y, int width, int height) {
         this.x = x;
@@ -34,5 +35,9 @@ public abstract class Entity {
 
     public Rectangle2D.Float getHitbox() {
         return hitbox;
+    }
+
+    public int getState() {
+        return state;
     }
 }
